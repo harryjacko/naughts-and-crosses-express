@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import Game from "./models/Game";
 
@@ -10,10 +10,28 @@ const port = process.env.PORT;
 app.use(express.json());
 
 const game = new Game();
-game.startNewGame();
 
 app.get("/", (_req, res) => {
-  res.send("Hello world!");
+  res.send("Naughts and Crossess");
+});
+
+app.post("/start", (_req, res: Response<Game>) => {
+  game.startNewGame();
+  res.json(game);
+});
+
+app.post(
+  "/move",
+  (req: Request<any, any, { position: number }>, res: Response<Game>) => {
+    console.log(req.body);
+
+    game.makeMove(req.body.position);
+    res.json(game);
+  }
+);
+
+app.get("/status", (_req, res) => {
+  res.json(game);
 });
 
 app.listen(port, () => {
