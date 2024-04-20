@@ -25,7 +25,6 @@ class Board {
 
   initialize() {
     this.cells = Array(9).fill(null);
-    console.log(this.cells);
   }
 
   isEmptyCell(position: number): boolean {
@@ -41,7 +40,7 @@ class Board {
   }
 
   isWinner(): Mark {
-    WINNING_POSITIONS.map((positions) => {
+    for (let positions of WINNING_POSITIONS) {
       const [a, b, c] = positions;
 
       if (
@@ -51,7 +50,8 @@ class Board {
       ) {
         return this.cells[a];
       }
-    });
+    }
+
     return null;
   }
 }

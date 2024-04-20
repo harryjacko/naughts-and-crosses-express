@@ -23,8 +23,6 @@ app.post("/start", (_req, res: Response<Game>) => {
 app.post(
   "/move",
   (req: Request<any, any, { position: number }>, res: Response<Game>) => {
-    console.log(req.body);
-
     game.makeMove(req.body.position);
     res.json(game);
   }

@@ -16,6 +16,8 @@ class Game {
   startNewGame() {
     this.board.initialize();
     this.currentPlayer = "X";
+    this.gameOver = false;
+    this.winner = null;
   }
 
   makeMove(position: number) {
@@ -23,6 +25,7 @@ class Game {
       this.board.placeMark(position, this.currentPlayer);
 
       const winner = this.board.isWinner();
+
       if (winner) {
         this.gameOver = true;
         this.winner = winner;
