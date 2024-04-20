@@ -1,6 +1,6 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import dotenv from "dotenv";
-import Game from "./models/Game";
+import router from "./routes";
 
 dotenv.config();
 
@@ -9,29 +9,14 @@ const port = process.env.PORT;
 
 app.use(express.json());
 
-const game = new Game();
-
-app.get("/", (_req, res) => {
-  res.send("Naughts and Crossess");
-});
-
-app.post("/start", (_req, res: Response<Game>) => {
-  game.startNewGame();
-  res.json(game);
-});
-
-app.post(
-  "/move",
-  (req: Request<any, any, { position: number }>, res: Response<Game>) => {
-    game.makeMove(req.body.position);
-    res.json(game);
-  }
-);
-
-app.get("/status", (_req, res) => {
-  res.json(game);
-});
-
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
+});
+
+app.use("/game", router);
+
+app.use((_req, res) => {
+  const error = Error("Not found");
+  res.statusCode = 404;
+  res.send({ error: error.message });
 });

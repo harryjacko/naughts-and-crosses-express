@@ -7,7 +7,8 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/app.js",
-    "dev": "nodemon src/app.ts"
+    "dev": "nodemon src/app.ts",
+    "watch": "npx tsc -w"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
