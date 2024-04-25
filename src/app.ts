@@ -11,6 +11,10 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
+app.listen(port, () => {
+  console.log(`[server]: Server is listening on port: ${port}`);
+});
+
 app.use("/game", router);
 
 app.use((_req, res) => {
